@@ -6,36 +6,36 @@
 }
 
 body{
-    background:linear-gradient(135deg,#667eea,#764ba2);
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
     padding:20px;
 }
 
 .container{
     width:100%;
-    max-width:600px;
+    max-width:450px;
     background:#fff;
     padding:30px;
     border-radius:15px;
-    box-shadow:0 15px 35px rgba(0,0,0,.2);
+    box-shadow:0 15px 30px rgba(0,0,0,.2);
+    text-align:center;
 }
 
 h1{
-    text-align:center;
     margin-bottom:25px;
     color:#333;
 }
 
-.input-box{
+.search-box{
     display:flex;
     gap:10px;
-    margin-bottom:20px;
+    margin-bottom:25px;
 }
 
-.input-box input{
+.search-box input{
     flex:1;
     padding:12px;
     border:2px solid #ddd;
@@ -43,107 +43,55 @@ h1{
     font-size:16px;
 }
 
-.input-box input:focus{
+.search-box input:focus{
     outline:none;
-    border-color:#667eea;
+    border-color:#2196f3;
 }
 
-.input-box button{
-    padding:12px 20px;
+.search-box button{
+    padding:12px 18px;
     border:none;
-    background:#667eea;
+    border-radius:8px;
+    background:#2196f3;
     color:#fff;
-    border-radius:8px;
     cursor:pointer;
     transition:.3s;
 }
 
-.input-box button:hover{
-    background:#5563d6;
+.search-box button:hover{
+    background:#1976d2;
 }
 
-.filters{
-    display:flex;
-    justify-content:center;
-    gap:10px;
+.weather-card{
+    background:#f5f5f5;
+    padding:25px;
+    border-radius:12px;
+}
+
+.weather-card h2{
     margin-bottom:20px;
-    flex-wrap:wrap;
+    color:#333;
 }
 
-.filter{
-    padding:10px 18px;
-    border:none;
-    border-radius:8px;
-    background:#eee;
-    cursor:pointer;
-    transition:.3s;
+.weather-card p{
+    margin:12px 0;
+    font-size:18px;
 }
 
-.filter.active{
-    background:#667eea;
-    color:white;
-}
-
-#taskList{
-    list-style:none;
-}
-
-.task{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:#f8f8f8;
-    padding:12px;
-    margin-bottom:12px;
-    border-radius:8px;
-}
-
-.task.completed span{
-    text-decoration:line-through;
-    color:gray;
-}
-
-.actions{
-    display:flex;
-    gap:8px;
-}
-
-.actions button{
-    border:none;
-    padding:7px 12px;
-    border-radius:6px;
-    cursor:pointer;
-}
-
-.complete{
-    background:#28a745;
-    color:white;
-}
-
-.edit{
-    background:#ffc107;
-}
-
-.delete{
-    background:#dc3545;
-    color:white;
+#status{
+    margin-top:20px;
+    color:#d32f2f;
+    font-weight:bold;
 }
 
 @media(max-width:600px){
 
-.input-box{
-flex-direction:column;
+.search-box{
+    flex-direction:column;
 }
 
-.task{
-flex-direction:column;
-align-items:flex-start;
-gap:10px;
-}
-
-.actions{
-width:100%;
-justify-content:flex-end;
+.search-box button{
+    width:100%;
 }
 
 }

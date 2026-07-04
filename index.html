@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>To-Do List App</title>
+<title>Weather Dashboard</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -17,42 +18,48 @@
 
 <div class="container">
 
-<h1>📝 To-Do List</h1>
+<h1>🌤 Weather Dashboard</h1>
 
-<div class="input-box">
+<div class="search-box">
 
 <input
 type="text"
-id="taskInput"
-placeholder="Enter a new task">
+id="cityInput"
+placeholder="Enter city name">
 
-<button id="addTask">
-Add
+<button id="searchBtn">
+Search
 </button>
 
 </div>
 
-<div class="filters">
+<div class="weather-card">
 
-<button class="filter active" data-filter="all">
-All
-</button>
+<h2 id="cityName">
+Search a city
+</h2>
 
-<button class="filter" data-filter="active">
-Active
-</button>
+<p>
+🌡 Temperature:
+<span id="temperature">--</span> °C
+</p>
 
-<button class="filter" data-filter="completed">
-Completed
-</button>
+<p>
+💧 Humidity:
+<span id="humidity">--</span> %
+</p>
+
+<p>
+💨 Wind Speed:
+<span id="wind">--</span> km/h
+</p>
+
+<p id="status"></p>
 
 </div>
-
-<ul id="taskList">
-
-</ul>
 
 </div>
 
 </body>
+
 </html>

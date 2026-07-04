@@ -1,129 +1,66 @@
-const taskInput = document.getElementById("taskInput");
-const addTaskBtn = document.getElementById("addTask");
-const taskList = document.getElementById("taskList");
-const filterButtons = document.querySelectorAll(".filter");
+const apiKey = "97f579a9f9520202e1b08d3eee914655";
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-let currentFilter = "all";
+const cityInput = document.getElementById("cityInput");
+const searchBtn = document.getElementById("searchBtn");
 
-function saveTasks() {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-}
+const cityName = document.getElementById("cityName");
+const temperature = document.getElementById("temperature");
+const humidity = document.getElementById("humidity");
+const wind = document.getElementById("wind");
+const statusText = document.getElementById("status");
 
-function renderTasks() {
+async function getWeather(city){
 
-    taskList.innerHTML = "";
+    try{
 
-    let filtered = tasks.filter(task => {
+        statusText.textContent = "Loading...";
 
-        if (currentFilter === "active") {
-            return !task.completed;
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+        );
+
+        if(!response.ok){
+            throw new Error("City not found");
         }
 
-        if (currentFilter === "completed") {
-            return task.completed;
-        }
+        const data = await response.json();
 
-        return true;
+        cityName.textContent = data.name;
+        temperature.textContent = data.main.temp;
+        humidity.textContent = data.main.humidity;
+        wind.textContent = data.wind.speed;
 
-    });
+        statusText.textContent = "";
 
-    filtered.forEach((task, index) => {
+    }
 
-        const li = document.createElement("li");
+    catch(error){
 
-        li.className = task.completed ? "task completed" : "task";
+        cityName.textContent = "No Data";
+        temperature.textContent = "--";
+        humidity.textContent = "--";
+        wind.textContent = "--";
 
-        li.innerHTML = `
-            <span>${task.text}</span>
+        statusText.textContent = error.message;
 
-            <div class="actions">
-
-                <button class="complete">
-                    ${task.completed ? "Undo" : "Done"}
-                </button>
-
-                <button class="edit">
-                    Edit
-                </button>
-
-                <button class="delete">
-                    Delete
-                </button>
-
-            </div>
-        `;
-
-        li.querySelector(".complete").onclick = () => {
-            task.completed = !task.completed;
-            saveTasks();
-            renderTasks();
-        };
-
-        li.querySelector(".delete").onclick = () => {
-            tasks.splice(index,1);
-            saveTasks();
-            renderTasks();
-        };
-
-        li.querySelector(".edit").onclick = () => {
-
-            const updated = prompt("Edit Task", task.text);
-
-            if(updated && updated.trim() !== ""){
-
-                task.text = updated.trim();
-
-                saveTasks();
-
-                renderTasks();
-
-            }
-
-        };
-
-        taskList.appendChild(li);
-
-    });
+    }
 
 }
 
-addTaskBtn.onclick = () => {
+searchBtn.addEventListener("click",()=>{
 
-    const text = taskInput.value.trim();
+    const city = cityInput.value.trim();
 
-    if(text==="") return;
-
-    tasks.push({
-
-        text:text,
-
-        completed:false
-
-    });
-
-    taskInput.value="";
-
-    saveTasks();
-
-    renderTasks();
-
-};
-
-filterButtons.forEach(button=>{
-
-    button.onclick=()=>{
-
-        filterButtons.forEach(btn=>btn.classList.remove("active"));
-
-        button.classList.add("active");
-
-        currentFilter=button.dataset.filter;
-
-        renderTasks();
-
-    };
+    if(city!==""){
+        getWeather(city);
+    }
 
 });
 
-renderTasks();
+cityInput.addEventListener("keypress",(e)=>{
+
+    if(e.key==="Enter"){
+        searchBtn.click();
+    }
+
+});
